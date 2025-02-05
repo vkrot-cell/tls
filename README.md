@@ -4,6 +4,21 @@ For example, to use in extensions with https://developer.chrome.com/docs/extensi
 ``` sh
 npm i git+https://github.com/vkrot-cell/tls
 ```
+``` typescript
+    tlsClient = makeTLSClient({
+        host,
+        verifyServerCertificate: true,
+        async customServerCertificateVerification(host: string, certs: X509Certificate[]) {
+            const certs_bytes: Array<ArrayBuffer> = certs.map((cert) => cert.getRawData());
+            // check however you want. for example
+	    const verificationResult = chrome.platformKeys.verifyTLSServerCertificate(
+	        {
+	            'hostname': 'example.com',
+	            'serverCertificateChain': certs_bytes
+	        });
+        },
+    });
+```
 
 <div>
     <div>
