@@ -1,3 +1,10 @@
+## Difference between upstream
+It has ability to provide custom certificate verification method. 
+For example, to use in extensions with https://developer.chrome.com/docs/extensions/mv2/reference/platformKeys#method-verifyTLSServerCertificate
+``` sh
+npm i git+https://github.com/vkrot-cell/tls
+```
+
 <div>
     <div>
         <img src="https://raw.githubusercontent.com/reclaimprotocol/.github/main/assets/banners/TLS.png"  />
