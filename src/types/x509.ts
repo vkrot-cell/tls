@@ -26,4 +26,5 @@ export type X509Certificate<T = any> = {
 	verifyIssued(otherCert: X509Certificate<T>): boolean | Promise<boolean>
 
 	serialiseToPem(): string
+	getRawData(): ArrayBuffer
 }

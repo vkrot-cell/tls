@@ -52,6 +52,9 @@ export function loadX509FromPem(pem: string | Uint8Array): X509Certificate<pecul
 		serialiseToPem() {
 			return cert.toString('pem')
 		},
+		getRawData() {
+			return cert.rawData
+		}
 	}
 }
 

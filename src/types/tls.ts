@@ -89,6 +89,12 @@ export type TLSConnectionOptions = TLSHelloBaseOptions & {
 	 * if provided, the server certificate will be verified against these root CAs
 	 */
 	rootCAs?: X509Certificate[]
+
+	/**
+	 * if provided, this function will be used to verify server certificate,
+	 * instead of the default method.
+	 */
+	customServerCertificateVerification?: (host: string, certificates: X509Certificate[]) => Promise<undefined>
 }
 
 export type TLSClientOptions = TLSConnectionOptions & TLSEventHandlers & {

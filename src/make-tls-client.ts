@@ -35,7 +35,8 @@ export function makeTLSClient({
 	onSessionTicket,
 	onTlsEnd,
 	onHandshake,
-	onRecvCertificates
+	onRecvCertificates,
+	customServerCertificateVerification,
 }: TLSClientOptions) {
 	verifyServerCertificate = verifyServerCertificate !== false
 	namedCurves = namedCurves || SUPPORTED_NAMED_CURVES
@@ -262,7 +263,11 @@ export function makeTLSClient({
 					})
 
 					if(verifyServerCertificate) {
-						await verifyCertificateChain(certificates, host, rootCAs)
+						if (customServerCertificateVerification) {
+							await customServerCertificateVerification(host, certificates)
+						} else {
+							await verifyCertificateChain(certificates, host, rootCAs)
+						}
 						logger.debug('verified certificate chain')
 
 						certificatesVerified = true
@@ -330,7 +335,11 @@ export function makeTLSClient({
 					logger.debug('verified server key share signature')
 
 					if(verifyServerCertificate) {
-						await verifyCertificateChain(certificates, host, rootCAs)
+						if (customServerCertificateVerification) {
+							await customServerCertificateVerification(host, certificates)
+						} else {
+							await verifyCertificateChain(certificates, host, rootCAs)
+						}
 						logger.debug('verified certificate chain')
 
 						certificatesVerified = true
@@ -839,5 +848,6 @@ export function makeTLSClient({
 			}
 		},
 		end,
+		customServerCertificateVerification
 	}
 }
